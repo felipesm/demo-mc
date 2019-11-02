@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ifdeveloper.demomc.domain.Categoria;
 import com.ifdeveloper.demomc.repositories.CategoriaRepository;
+import com.ifdeveloper.demomc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -16,7 +17,8 @@ public class CategoriaService {
 	
 	public Categoria buscar(Integer id) {
 		Optional<Categoria> categoria = repositorio.findById(id);
-		return categoria.orElse(null);
+		return categoria.orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada! Id pesquisado: " + id +
+				", Tipo: " + Categoria.class.getName()));
 	}
 
 }

@@ -1,13 +1,10 @@
-package com.ifdeveloper.demomc;
+package com.ifdeveloper.demomc.domain;
 
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.ifdeveloper.demomc.domain.Pedido;
-import com.ifdeveloper.demomc.domain.Produto;
 
 @Embeddable
 public class ItemPedidoPK implements Serializable {

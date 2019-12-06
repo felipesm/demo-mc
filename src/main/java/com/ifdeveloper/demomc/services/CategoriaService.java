@@ -3,10 +3,12 @@ package com.ifdeveloper.demomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.ifdeveloper.demomc.domain.Categoria;
 import com.ifdeveloper.demomc.repositories.CategoriaRepository;
+import com.ifdeveloper.demomc.services.exceptions.DataIntegrityException;
 import com.ifdeveloper.demomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -31,6 +33,18 @@ public class CategoriaService {
 		buscar(categoria.getId());		
 		
 		return repositorio.save(categoria);
+	}
+
+	public void deletar(Integer id) {
+		
+		try {
+			
+			buscar(id);
+			repositorio.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir a categoria que possui produtos!");
+		}
+		
 	}
 
 }

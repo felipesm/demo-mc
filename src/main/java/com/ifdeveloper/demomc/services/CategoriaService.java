@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.ifdeveloper.demomc.domain.Categoria;
+import com.ifdeveloper.demomc.dto.CategoriaDTO;
 import com.ifdeveloper.demomc.repositories.CategoriaRepository;
 import com.ifdeveloper.demomc.services.exceptions.DataIntegrityException;
 import com.ifdeveloper.demomc.services.exceptions.ObjectNotFoundException;
@@ -61,6 +62,10 @@ public class CategoriaService {
 		PageRequest pageRequest = PageRequest.of(pagina, quantidade, Direction.valueOf(ordem), ordenadoPor);
 		
 		return repositorio.findAll(pageRequest);
+	}
+	
+	public Categoria instanciarCategoria(CategoriaDTO categoriaDTO) {
+		return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
 	}
 
 }

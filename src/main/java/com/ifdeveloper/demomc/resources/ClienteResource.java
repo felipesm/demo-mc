@@ -1,5 +1,6 @@
 package com.ifdeveloper.demomc.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ifdeveloper.demomc.domain.Cliente;
 import com.ifdeveloper.demomc.dto.ClienteDTO;
+import com.ifdeveloper.demomc.dto.NovoClienteDTO;
 import com.ifdeveloper.demomc.services.ClienteService;
 
 @RestController
@@ -32,6 +35,16 @@ public class ClienteResource {
 		Cliente cliente = service.buscar(id);
 		
 		return ResponseEntity.ok().body(cliente);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> inserir(@Valid @RequestBody NovoClienteDTO clienteDTO) {
+		Cliente categoria = service.instanciarCliente(clienteDTO);
+		categoria = service.inserir(categoria);
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
+		
+		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

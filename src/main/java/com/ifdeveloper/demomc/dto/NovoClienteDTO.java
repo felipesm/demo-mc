@@ -2,21 +2,40 @@ package com.ifdeveloper.demomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.ifdeveloper.demomc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class NovoClienteDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String nome;	
-	private String email;	
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Length(min = 2, max = 130, message = "O tamanho deve ser entre 2 e 130 caracteres")
+	private String nome;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Email(message = "Email inválido")
+	private String email;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String numeroInscricao;	
+	
 	private Integer tipoCliente;	
 	
 	private String logradouro;	
 	private String numero;	
 	private String complemento;	
-	private String bairro;	
+	private String bairro;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cep;	
 	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String telefoneCelular;
 	private String telefoneFixo;
 	private String telefoneComercial;

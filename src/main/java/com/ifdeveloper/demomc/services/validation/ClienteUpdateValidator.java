@@ -2,43 +2,44 @@ package com.ifdeveloper.demomc.services.validation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.HandlerMapping;
 
 import com.ifdeveloper.demomc.domain.Cliente;
-import com.ifdeveloper.demomc.domain.enums.TipoCliente;
-import com.ifdeveloper.demomc.dto.NovoClienteDTO;
+import com.ifdeveloper.demomc.dto.ClienteDTO;
 import com.ifdeveloper.demomc.repositories.ClienteRepository;
 import com.ifdeveloper.demomc.resources.exceptions.FieldMessage;
-import com.ifdeveloper.demomc.services.validation.utils.ValidaCpfCNPJ;
 
-public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, NovoClienteDTO> {
+public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
+	
+	@Autowired
+	private HttpServletRequest request;
 	
 	@Autowired
 	private ClienteRepository repositorio;
 
 	@Override
-	public void initialize(ClienteInsert ann) {
+	public void initialize(ClienteUpdate ann) {
 	}
 
 	@Override
-	public boolean isValid(NovoClienteDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
+		
+		@SuppressWarnings("unchecked")
+		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+		
+		Integer uriId = Integer.parseInt(map.get("id"));
 		
 		List<FieldMessage> lista = new ArrayList<>();
 		
-		if (objDto.getTipoCliente().equals(TipoCliente.PESSOAFISICA.getCodigo()) && !ValidaCpfCNPJ.validaCPF(objDto.getNumeroInscricao())) {
-			lista.add(new FieldMessage("numeroInscricao", "CPF Inválido"));
-		}
-		
-		if (objDto.getTipoCliente().equals(TipoCliente.PESSOAJURIDICA.getCodigo()) && !ValidaCpfCNPJ.validaCNPJ(objDto.getNumeroInscricao())) {
-			lista.add(new FieldMessage("numeroInscricao", "CNPJ Inválido"));
-		}
-		
 		Cliente cliente = repositorio.findByEmail(objDto.getEmail());
-		if (cliente != null) {
+		if (cliente != null && cliente.getId() != uriId) {
 			lista.add(new FieldMessage("email", "Email já cadastrado"));
 		}
 

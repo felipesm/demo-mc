@@ -79,16 +79,26 @@ public class DemoMcApplication implements CommandLineRunner {
 		Produto produto1 = new Produto(null, "Computador", 2000.00);
 		Produto produto2 = new Produto(null, "Impressora", 600.00);
 		Produto produto3 = new Produto(null, "Monitor", 800.00);
+		Produto produto4 = new Produto(null, "Mesa", 350.00);
+		Produto produto5 = new Produto(null, "Xiaomi Note 7", 980.00);
+		Produto produto6 = new Produto(null, "Shampoo", 7.50);
+		Produto produto7 = new Produto(null, "Samsung S9", 1020.10);
 		
 		categoria1.getProdutos().addAll(Arrays.asList(produto1, produto2, produto3));
-		categoria2.getProdutos().addAll(Arrays.asList(produto2));
+		categoria2.getProdutos().addAll(Arrays.asList(produto2, produto4));
+		categoria3.getProdutos().addAll(Arrays.asList(produto6));
+		categoria5.getProdutos().addAll(Arrays.asList(produto5, produto7));
 		
 		produto1.getCategorias().addAll(Arrays.asList(categoria1));
 		produto2.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
 		produto3.getCategorias().addAll(Arrays.asList(categoria1));
+		produto4.getCategorias().addAll(Arrays.asList(categoria2, categoria4));
+		produto5.getCategorias().addAll(Arrays.asList(categoria5));
+		produto6.getCategorias().addAll(Arrays.asList(categoria3));
+		produto7.getCategorias().addAll(Arrays.asList(categoria5));
 		
 		categoriaRepositorio.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7));
-		produtoRepositorio.saveAll(Arrays.asList(produto1, produto2, produto3));
+		produtoRepositorio.saveAll(Arrays.asList(produto1, produto2, produto3, produto4, produto5, produto6, produto7));
 		
 		
 		Estado estado1 = new Estado(null, "Paraíba");

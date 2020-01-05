@@ -69,7 +69,7 @@ public class DBService {
 		Categoria categoria5 = new Categoria(null, "Telefones e Celulares");
 		Categoria categoria6 = new Categoria(null, "Áudio");
 		Categoria categoria7 = new Categoria(null, "TV e Vídeo");
-		
+				
 		Produto produto1 = new Produto(null, "Computador", 2000.00);
 		Produto produto2 = new Produto(null, "Impressora", 600.00);
 		Produto produto3 = new Produto(null, "Monitor", 800.00);

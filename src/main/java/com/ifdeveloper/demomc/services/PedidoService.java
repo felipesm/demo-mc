@@ -16,6 +16,7 @@ import com.ifdeveloper.demomc.repositories.ItemPedidoRepository;
 import com.ifdeveloper.demomc.repositories.PagamentoRepository;
 import com.ifdeveloper.demomc.repositories.PedidoRepository;
 import com.ifdeveloper.demomc.services.exceptions.ObjectNotFoundException;
+import com.ifdeveloper.demomc.services.interfaces.EmailService;
 
 @Service
 public class PedidoService {
@@ -37,6 +38,9 @@ public class PedidoService {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	public Pedido buscar(Integer id) {
 		Optional<Pedido> pedido = pedidoRepositorio.findById(id);
@@ -68,7 +72,7 @@ public class PedidoService {
 			
 		}
 		itemPedidoRepositorio.saveAll(pedido.getItens());
-		System.out.println(pedido);
+		emailService.enviarConfirmacaoPedido(pedido);
 		
 		return pedido;
 	}

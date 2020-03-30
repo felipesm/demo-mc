@@ -20,6 +20,7 @@ import com.ifdeveloper.demomc.domain.PagamentoComCartao;
 import com.ifdeveloper.demomc.domain.Pedido;
 import com.ifdeveloper.demomc.domain.Produto;
 import com.ifdeveloper.demomc.domain.enums.EstadoPagamento;
+import com.ifdeveloper.demomc.domain.enums.Perfil;
 import com.ifdeveloper.demomc.domain.enums.TipoCliente;
 import com.ifdeveloper.demomc.repositories.CategoriaRepository;
 import com.ifdeveloper.demomc.repositories.CidadeRepository;
@@ -112,16 +113,22 @@ public class DBService {
 		estadoRepositorio.saveAll(Arrays.asList(estado1, estado2));
 		cidadeRepositorio.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 		
-		Cliente cliente1 = new Cliente(null, "Maria do Bairro", "felipe.silwa@gmail.com", "10204472347", TipoCliente.PESSOAFISICA, bcrypt.encode("abcde107"));
+		Cliente cliente1 = new Cliente(null, "Maria do Bairro", "maria.bairro@gmail.com", "10204472347", TipoCliente.PESSOAFISICA, bcrypt.encode("abcde107"));
 		cliente1.getTelefones().addAll(Arrays.asList("55 5551205", "55 5553069"));
+		
+		Cliente cliente2 = new Cliente(null, "Jose Gomes", "jose.gomes@gmail.com", "51145412009", TipoCliente.PESSOAFISICA, bcrypt.encode("defgh333"));
+		cliente2.getTelefones().addAll(Arrays.asList("55 5558805", "55 5552079"));
+		cliente2.adicionarPerfil(Perfil.ADMIN);
 		
 		Endereco endereco1 = new Endereco(null, "Rua Cabral", "341", "Apto", "Centro", "33103090", cliente1, cidade1);
 		Endereco endereco2 = new Endereco(null, "Vila Jardim", "456", "Vila", "Novo Jardim", "31010990", cliente1, cidade2);
+		Endereco endereco3 = new Endereco(null, "Avenida Costa Bezerra", "133", "Vila", "Montes", "54015990", cliente2, cidade2);
 		
 		cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
+		cliente2.getEnderecos().addAll(Arrays.asList(endereco3));
 		
-		clienteRepositorio.saveAll(Arrays.asList(cliente1));
-		enderecoRepositorio.saveAll(Arrays.asList(endereco1, endereco2));
+		clienteRepositorio.saveAll(Arrays.asList(cliente1, cliente2));
+		enderecoRepositorio.saveAll(Arrays.asList(endereco1, endereco2, endereco3));
 		
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Pedido pedido1 = new Pedido(null, format.parse("13/11/2019 01:32"), cliente1, endereco1);

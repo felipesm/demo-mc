@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ifdeveloper.demomc.domain.Cidade;
 import com.ifdeveloper.demomc.domain.Cliente;
 import com.ifdeveloper.demomc.domain.Endereco;
+import com.ifdeveloper.demomc.domain.enums.Perfil;
 import com.ifdeveloper.demomc.domain.enums.TipoCliente;
 import com.ifdeveloper.demomc.dto.ClienteDTO;
 import com.ifdeveloper.demomc.dto.NovoClienteDTO;
 import com.ifdeveloper.demomc.repositories.ClienteRepository;
 import com.ifdeveloper.demomc.repositories.EnderecoRepository;
+import com.ifdeveloper.demomc.security.UserSecurity;
+import com.ifdeveloper.demomc.services.exceptions.AuthorizationException;
 import com.ifdeveloper.demomc.services.exceptions.DataIntegrityException;
 import com.ifdeveloper.demomc.services.exceptions.ObjectNotFoundException;
 
@@ -36,6 +39,13 @@ public class ClienteService {
 	private BCryptPasswordEncoder bcrypt;
 	
 	public Cliente buscar(Integer id) {
+		
+		UserSecurity userSecurity = UserService.authenticated();
+		
+		if (userSecurity == null || !userSecurity.hasHole(Perfil.ADMIN) && !id.equals(userSecurity.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
 		Optional<Cliente> cliente = repositorio.findById(id);
 		return cliente.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado! Id pesquisado: " + id +
 				", Tipo: " + Cliente.class.getName()));

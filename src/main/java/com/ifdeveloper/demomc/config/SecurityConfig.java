@@ -37,12 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private JWTUtil jwtUtil;
 	
 	private static final String[] URL_LIBERADAS = {
-			"/h2-console/**"
+			"/h2-console/**",
+			"/cidades/**"
 	};
 	
 	private static final String[] ENDPOINTS_GET = {
 			"/produtos/**",
 			"/categorias/**",
+			"/estados/**",
 			"/clientes/**"
 	};
 	

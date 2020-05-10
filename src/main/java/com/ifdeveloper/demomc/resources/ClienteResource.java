@@ -38,6 +38,14 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(cliente);
 	}
 	
+	@RequestMapping(value = "/email", method = RequestMethod.GET)
+	public ResponseEntity<?> buscarPorEmail(@RequestParam (value = "value") String email) {
+		
+		Cliente cliente = service.buscarPorEmail(email);
+		
+		return ResponseEntity.ok().body(cliente);
+	}
+	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> inserir(@Valid @RequestBody NovoClienteDTO clienteDTO) {

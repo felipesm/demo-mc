@@ -22,13 +22,18 @@ import com.ifdeveloper.demomc.domain.Categoria;
 import com.ifdeveloper.demomc.dto.CategoriaDTO;
 import com.ifdeveloper.demomc.services.CategoriaService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value = "/categorias")
+@Api(value = "Categorias", description = "Recurso para operações com a entidade Categoria")
 public class CategoriaResource {
 	
 	@Autowired
 	private CategoriaService service;
 	
+	@ApiOperation(value = "Consulta os dados de uma determinada Categoria")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> buscar(@PathVariable Integer id) {
 		
@@ -37,6 +42,7 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(categoria);
 	}
 	
+	@ApiOperation(value = "Insere uma nova Categoria")
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> inserir(@Valid @RequestBody CategoriaDTO categoriaDTO) {
@@ -48,6 +54,7 @@ public class CategoriaResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@ApiOperation(value = "Atualiza uma Categoria")
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> atualizar(@Valid @RequestBody CategoriaDTO categoriaDTO, @PathVariable Integer id) {
@@ -59,6 +66,7 @@ public class CategoriaResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@ApiOperation(value = "Exclui uma Categoria")
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable Integer id) {
@@ -67,6 +75,7 @@ public class CategoriaResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@ApiOperation(value = "Lista todas as Categorias")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> listar() {
 		List<Categoria> categorias = service.listar();
@@ -75,6 +84,7 @@ public class CategoriaResource {
 		return ResponseEntity.ok(categoriasDTO);
 	}
 	
+	@ApiOperation(value = "Lista as Categoria de forma paginada")
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> listarPaginado(
 			@RequestParam(value = "pagina", defaultValue = "0") Integer pagina, 

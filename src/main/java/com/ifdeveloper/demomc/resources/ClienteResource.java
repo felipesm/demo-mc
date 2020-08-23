@@ -46,7 +46,6 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(cliente);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> inserir(@Valid @RequestBody NovoClienteDTO clienteDTO) {
 		Cliente categoria = service.instanciarCliente(clienteDTO);

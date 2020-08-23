@@ -82,8 +82,23 @@ public class DBService {
 		Produto produto5 = new Produto(null, "Xiaomi Note 7", 980.00);
 		Produto produto6 = new Produto(null, "Shampoo", 7.50);
 		Produto produto7 = new Produto(null, "Samsung S9", 1020.10);
+		Produto produto8 = new Produto(null, "Notebook Dell", 3710.99);
+		Produto produto9 = new Produto(null, "Notebook Lenovo", 3519.89);
+		Produto produto10 = new Produto(null, "HD Externo", 500.00);
+		Produto produto11 = new Produto(null, "Pen Drive 64 GB", 54.10);
+		Produto produto12 = new Produto(null, "Modem TP-Link", 169.30);
+		Produto produto13 = new Produto(null, "Memória RAM 8 GB", 275.20);
+		Produto produto14 = new Produto(null, "WaterCooler Corsair", 310.60);
+		Produto produto15 = new Produto(null, "Fonte Corsair 550W", 499.19);
+		Produto produto16 = new Produto(null, "Cartucho Impressora HP", 30.00);
+		Produto produto17 = new Produto(null, "Kindle Amazon", 384.90);
+		Produto produto18 = new Produto(null, "Controle PS4", 244.20);
+		Produto produto19 = new Produto(null, "XBox One", 1840.60);
 		
-		categoria1.getProdutos().addAll(Arrays.asList(produto1, produto2, produto3));
+		
+		categoria1.getProdutos().addAll(Arrays.asList(produto1, produto2, produto3, produto8, produto9, produto10, produto11, 
+				produto12, produto13, produto14, produto15, produto16, produto17, produto18, produto19));
+		
 		categoria2.getProdutos().addAll(Arrays.asList(produto2, produto4));
 		categoria3.getProdutos().addAll(Arrays.asList(produto6));
 		categoria5.getProdutos().addAll(Arrays.asList(produto5, produto7));
@@ -95,9 +110,23 @@ public class DBService {
 		produto5.getCategorias().addAll(Arrays.asList(categoria5));
 		produto6.getCategorias().addAll(Arrays.asList(categoria3));
 		produto7.getCategorias().addAll(Arrays.asList(categoria5));
+		produto8.getCategorias().addAll(Arrays.asList(categoria1));
+		produto9.getCategorias().addAll(Arrays.asList(categoria1));
+		produto10.getCategorias().addAll(Arrays.asList(categoria1));
+		produto11.getCategorias().addAll(Arrays.asList(categoria1));
+		produto12.getCategorias().addAll(Arrays.asList(categoria1));
+		produto13.getCategorias().addAll(Arrays.asList(categoria1));
+		produto14.getCategorias().addAll(Arrays.asList(categoria1));
+		produto15.getCategorias().addAll(Arrays.asList(categoria1));
+		produto16.getCategorias().addAll(Arrays.asList(categoria1));
+		produto17.getCategorias().addAll(Arrays.asList(categoria1));
+		produto18.getCategorias().addAll(Arrays.asList(categoria1));
+		produto19.getCategorias().addAll(Arrays.asList(categoria1));
+		
 		
 		categoriaRepositorio.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7));
-		produtoRepositorio.saveAll(Arrays.asList(produto1, produto2, produto3, produto4, produto5, produto6, produto7));
+		produtoRepositorio.saveAll(Arrays.asList(produto1, produto2, produto3, produto4, produto5, produto6, produto7, produto8, 
+				produto9, produto10, produto11, produto12, produto13, produto14, produto15, produto16, produto17, produto18, produto19));
 		
 		
 		Estado estado1 = new Estado(null, "Paraíba");
@@ -113,10 +142,10 @@ public class DBService {
 		estadoRepositorio.saveAll(Arrays.asList(estado1, estado2));
 		cidadeRepositorio.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 		
-		Cliente cliente1 = new Cliente(null, "Maria do Bairro", "maria.bairro@gmail.com", "10204472347", TipoCliente.PESSOAFISICA, bcrypt.encode("abcde107"));
+		Cliente cliente1 = new Cliente(null, "Maria do Bairro", "maria@gmail.com", "10204472347", TipoCliente.PESSOAFISICA, bcrypt.encode("abcde107"));
 		cliente1.getTelefones().addAll(Arrays.asList("55 5551205", "55 5553069"));
 		
-		Cliente cliente2 = new Cliente(null, "Jose Gomes", "jose.gomes@gmail.com", "51145412009", TipoCliente.PESSOAFISICA, bcrypt.encode("defgh333"));
+		Cliente cliente2 = new Cliente(null, "Jose Gomes", "jose@gmail.com", "51145412009", TipoCliente.PESSOAFISICA, bcrypt.encode("defgh333"));
 		cliente2.getTelefones().addAll(Arrays.asList("55 5558805", "55 5552079"));
 		cliente2.adicionarPerfil(Perfil.ADMIN);
 		

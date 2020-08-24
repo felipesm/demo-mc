@@ -16,6 +16,10 @@ import com.ifdeveloper.demomc.dto.ProdutoDTO;
 import com.ifdeveloper.demomc.resources.utils.URL;
 import com.ifdeveloper.demomc.services.ProdutoService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Produtos", description = "Recurso para operações com a entidade Produto")
 @RestController
 @RequestMapping(value = "/produtos")
 public class ProdutoResource {
@@ -23,6 +27,7 @@ public class ProdutoResource {
 	@Autowired
 	private ProdutoService service;
 	
+	@ApiOperation(value = "Consulta os dados de um determinado Produto")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> buscar(@PathVariable Integer id) {
 		
@@ -31,6 +36,7 @@ public class ProdutoResource {
 		return ResponseEntity.ok().body(produto);
 	}
 	
+	@ApiOperation(value = "Lista os Produtos de forma paginada")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Page<ProdutoDTO>> listarPaginado(
 			@RequestParam(value = "nome", defaultValue = "") String nome,

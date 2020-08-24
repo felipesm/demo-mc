@@ -23,6 +23,10 @@ import com.ifdeveloper.demomc.dto.ClienteDTO;
 import com.ifdeveloper.demomc.dto.NovoClienteDTO;
 import com.ifdeveloper.demomc.services.ClienteService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Clientes", description = "Recurso para operações com a entidade Cliente")
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
@@ -30,6 +34,7 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService service;
 	
+	@ApiOperation(value = "Consulta os dados de um determinado Cliente")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> buscar(@PathVariable Integer id) {
 		
@@ -38,6 +43,7 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(cliente);
 	}
 	
+	@ApiOperation(value = "Consulta os dados de um determinado Cliente através do email")
 	@RequestMapping(value = "/email", method = RequestMethod.GET)
 	public ResponseEntity<?> buscarPorEmail(@RequestParam (value = "value") String email) {
 		
@@ -46,6 +52,7 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(cliente);
 	}
 	
+	@ApiOperation(value = "Insere um novo Cliente")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> inserir(@Valid @RequestBody NovoClienteDTO clienteDTO) {
 		Cliente categoria = service.instanciarCliente(clienteDTO);
@@ -56,6 +63,7 @@ public class ClienteResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@ApiOperation(value = "Atualiza um Cliente")
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> atualizar(@Valid @RequestBody ClienteDTO clienteDTO, @PathVariable Integer id) {
@@ -67,6 +75,7 @@ public class ClienteResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@ApiOperation(value = "Exclui um Cliente")
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable Integer id) {
@@ -75,6 +84,7 @@ public class ClienteResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@ApiOperation(value = "Lista todos os Clientes")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ClienteDTO>> listar() {
 		List<Cliente> clientes = service.listar();
@@ -83,6 +93,7 @@ public class ClienteResource {
 		return ResponseEntity.ok(clientesDTO);
 	}
 	
+	@ApiOperation(value = "Lista os Clientes de forma paginada")
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<ClienteDTO>> listarPaginado(
 			@RequestParam(value = "pagina", defaultValue = "0") Integer pagina, 

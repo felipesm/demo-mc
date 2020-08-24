@@ -18,6 +18,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.ifdeveloper.demomc.domain.Pedido;
 import com.ifdeveloper.demomc.services.PedidoService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Pedidos", description = "Recurso para operações com a entidade Pedido")
 @RestController
 @RequestMapping(value = "/pedidos")
 public class PedidoResource {
@@ -25,6 +29,7 @@ public class PedidoResource {
 	@Autowired
 	private PedidoService service;
 	
+	@ApiOperation(value = "Consulta os dados de um determinado Pedido")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> buscar(@PathVariable Integer id) {
 		
@@ -33,6 +38,7 @@ public class PedidoResource {
 		return ResponseEntity.ok().body(pedido);
 	}
 	
+	@ApiOperation(value = "Insere um novo Pedido")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> inserir(@Valid @RequestBody Pedido pedido) {
 		
@@ -43,6 +49,7 @@ public class PedidoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@ApiOperation(value = "Lista os Pedidos de forma paginada")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Page<Pedido>> listarPaginado(
 			@RequestParam(value = "pagina", defaultValue = "0") Integer pagina, 

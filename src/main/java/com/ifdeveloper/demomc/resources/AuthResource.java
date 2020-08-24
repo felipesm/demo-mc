@@ -12,6 +12,10 @@ import com.ifdeveloper.demomc.security.JWTUtil;
 import com.ifdeveloper.demomc.security.UserSecurity;
 import com.ifdeveloper.demomc.services.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Autorização", description = "Recurso para operação de Autorização")
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthResource {
@@ -19,6 +23,7 @@ public class AuthResource {
 	@Autowired
 	private JWTUtil jwtUtil;
 	
+	@ApiOperation(value = "Atualiza o token")
 	@RequestMapping(value = "/refresh-token", method = RequestMethod.POST)
 	public ResponseEntity<Void> refreshToken(HttpServletResponse response) {
 		UserSecurity userSecurity = UserService.authenticated();

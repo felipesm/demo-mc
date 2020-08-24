@@ -25,9 +25,9 @@ import com.ifdeveloper.demomc.services.CategoriaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+@Api(value = "Categorias", description = "Recurso para operações com a entidade Categoria")
 @RestController
 @RequestMapping(value = "/categorias")
-@Api(value = "Categorias", description = "Recurso para operações com a entidade Categoria")
 public class CategoriaResource {
 	
 	@Autowired
@@ -84,7 +84,7 @@ public class CategoriaResource {
 		return ResponseEntity.ok(categoriasDTO);
 	}
 	
-	@ApiOperation(value = "Lista as Categoria de forma paginada")
+	@ApiOperation(value = "Lista as Categorias de forma paginada")
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> listarPaginado(
 			@RequestParam(value = "pagina", defaultValue = "0") Integer pagina, 

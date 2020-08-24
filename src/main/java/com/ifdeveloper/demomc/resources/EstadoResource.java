@@ -17,6 +17,10 @@ import com.ifdeveloper.demomc.dto.EstadoDTO;
 import com.ifdeveloper.demomc.services.CidadeService;
 import com.ifdeveloper.demomc.services.EstadoService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Estados", description = "Recurso para operações com a entidade Estado")
 @RestController
 @RequestMapping(value = "/estados")
 public class EstadoResource {
@@ -27,6 +31,7 @@ public class EstadoResource {
 	@Autowired
 	private CidadeService cidadeService;
 	
+	@ApiOperation(value = "Lista todos os Estados")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<EstadoDTO>> listarEstados() {
 		List<Estado> estados = estadoService.listarEstados();
@@ -35,6 +40,7 @@ public class EstadoResource {
 		return ResponseEntity.ok().body(estadosDTO);
 	}
 	
+	@ApiOperation(value = "Lista as cidades de um determinado Estado")
 	@RequestMapping(value = "/{idEstado}/cidades", method = RequestMethod.GET)
 	public ResponseEntity<List<CidadeDTO>> listarCidadesPorEstado(@PathVariable Integer idEstado) {
 		

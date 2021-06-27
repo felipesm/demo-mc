@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ifdeveloper.demomc.domain.Categoria;
 import com.ifdeveloper.demomc.dto.CategoriaDTO;
+import com.ifdeveloper.demomc.resources.utils.URL;
 import com.ifdeveloper.demomc.services.CategoriaService;
 
 @RestController
@@ -77,12 +78,15 @@ public class CategoriaResource {
 	
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> listarPaginado(
+			@RequestParam(value = "nome", defaultValue = "") String nome,
 			@RequestParam(value = "pagina", defaultValue = "0") Integer pagina, 
 			@RequestParam(value = "quantidade", defaultValue = "24") Integer quantidade,
 			@RequestParam(value = "ordenadoPor", defaultValue = "nome") String ordenadoPor,
 			@RequestParam(value = "ordem", defaultValue = "ASC") String ordem) {
 		
-		Page<Categoria> categorias = service.listarPaginado(pagina, quantidade, ordenadoPor, ordem);
+		String nomeDecodificado = URL.decodificarParametro(nome);
+		
+		Page<Categoria> categorias = service.listarPaginado(nomeDecodificado, pagina, quantidade, ordenadoPor, ordem);
 		Page<CategoriaDTO> categoriasDTO = categorias.map(obj -> new CategoriaDTO(obj));
 		
 		return ResponseEntity.ok().body(categoriasDTO);

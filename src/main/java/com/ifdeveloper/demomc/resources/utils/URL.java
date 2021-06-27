@@ -19,14 +19,18 @@ public class URL {
 	
 	public static List<Integer> converterListaInteiros(String url) {
 		
-		String[] vetor = url.split(",");
 		List<Integer> listaIds = new ArrayList<>();
-		
-		for (String item : vetor) {
-			listaIds.add(Integer.valueOf(item));
+		try {
+			String[] vetor = url.split(",");
+			
+			for (String item : vetor) {
+				listaIds.add(Integer.valueOf(item));
+			}
+			
+			return listaIds;
+		} catch (Exception e) {
+			return listaIds;
 		}
-		
-		return listaIds;
 	}
 
 }

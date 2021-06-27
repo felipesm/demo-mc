@@ -40,16 +40,16 @@ public class Cliente implements Serializable {
 	@JsonIgnore
 	private String senha;
 	
-	@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name = "perfis")
-	private Set<Integer> perfis = new HashSet<>();
-	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	@ElementCollection
-	@CollectionTable(name = "telefone")
+	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
+
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")

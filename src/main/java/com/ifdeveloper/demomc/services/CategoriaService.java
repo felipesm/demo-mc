@@ -63,11 +63,11 @@ public class CategoriaService {
 		return repositorio.findAll();
 	}
 	
-	public Page<Categoria> listarPaginado(Integer pagina, Integer quantidade, String ordenadoPor, String ordem) {
+	public Page<Categoria> listarPaginado(String nome, Integer pagina, Integer quantidade, String ordenadoPor, String ordem) {
 		
 		PageRequest pageRequest = PageRequest.of(pagina, quantidade, Direction.valueOf(ordem), ordenadoPor);
 		
-		return repositorio.findAll(pageRequest);
+		return repositorio.findByNomeContaining(nome, pageRequest);
 	}
 	
 	public Categoria instanciarCategoria(CategoriaDTO categoriaDTO) {

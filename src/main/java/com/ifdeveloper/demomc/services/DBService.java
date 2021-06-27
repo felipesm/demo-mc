@@ -143,7 +143,7 @@ public class DBService {
 		cidadeRepositorio.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 		
 		Cliente cliente1 = new Cliente(null, "Maria do Bairro", "maria@gmail.com", "10204472347", TipoCliente.PESSOAFISICA, bcrypt.encode("abcde107"));
-		cliente1.getTelefones().addAll(Arrays.asList("55 5551205", "55 5553069"));
+		cliente1.getTelefones().addAll(Arrays.asList("55 5551205", "55 5553069", "55 930107465"));
 		
 		Cliente cliente2 = new Cliente(null, "Jose Gomes", "jose@gmail.com", "51145412009", TipoCliente.PESSOAFISICA, bcrypt.encode("defgh333"));
 		cliente2.getTelefones().addAll(Arrays.asList("55 5558805", "55 5552079"));
@@ -152,9 +152,11 @@ public class DBService {
 		Endereco endereco1 = new Endereco(null, "Rua Cabral", "341", "Apto", "Centro", "33103090", cliente1, cidade1);
 		Endereco endereco2 = new Endereco(null, "Vila Jardim", "456", "Vila", "Novo Jardim", "31010990", cliente1, cidade2);
 		Endereco endereco3 = new Endereco(null, "Avenida Costa Bezerra", "133", "Vila", "Montes", "54015990", cliente2, cidade2);
+		Endereco endereco4 = new Endereco(null, "Avenida Rui Braga", "903", "Avenida", "Portal Branco", "54030960", cliente2, cidade2);
+		Endereco endereco5 = new Endereco(null, "Rua Tomé de Bala", "1500", "", "Biribim", "55103475", cliente2, cidade3);
 		
 		cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
-		cliente2.getEnderecos().addAll(Arrays.asList(endereco3));
+		cliente2.getEnderecos().addAll(Arrays.asList(endereco3, endereco4, endereco5));
 		
 		clienteRepositorio.saveAll(Arrays.asList(cliente1, cliente2));
 		enderecoRepositorio.saveAll(Arrays.asList(endereco1, endereco2, endereco3));

@@ -1,5 +1,6 @@
 package com.ifdeveloper.demomc.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,12 @@ public class ProdutoService {
 	public Page<Produto> listarPaginado(String nome, List<Integer> ids, Integer pagina, Integer quantidade, String ordenadoPor, String ordem) {
 		
 		PageRequest pageRequest = PageRequest.of(pagina, quantidade, Direction.valueOf(ordem), ordenadoPor);
-		List<Categoria> categorias = categoriaRepositorio.findAllById(ids);
+		List<Categoria> categorias = new ArrayList<>();
+		if (ids.isEmpty()) {
+			categorias = categoriaRepositorio.findAll();
+		} else {
+			categorias = categoriaRepositorio.findAllById(ids);
+		}
 		return produtoRepositorio.findDistinctByNomeContainingAndCategoriasIn(nome, categorias, pageRequest);
 	}
 
